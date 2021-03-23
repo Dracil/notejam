@@ -1,10 +1,10 @@
 from datetime import date
-import md5
+from hashlib import md5
 
 from flask import render_template, flash, request, redirect, url_for, abort
-from flask.ext.login import (login_user, login_required, logout_user,
+from flask_login import (login_user, login_required, logout_user,
 current_user)
-from flask.ext.mail import Message
+from flask_mail import Message
 
 from notejam import app, db, login_manager, mail
 from notejam.models import User, Note, Pad
@@ -35,7 +35,8 @@ def create_note():
         note = Note(
             name=note_form.name.data,
             text=note_form.text.data,
-            pad_id=note_form.pad.data,
+            # for mysql we need to check for the null case, which will be 0
+            pad_id=note_form.pad.data if note_form.pad.data != 0 else None,
             user=current_user
         )
         db.session.add(note)
@@ -53,7 +54,8 @@ def edit_note(note_id):
     if note_form.validate_on_submit():
         note.name = note_form.name.data
         note.text = note_form.text.data
-        note.pad_id = note_form.pad.data
+        # for mysql we need to check for the null case, which will be 0
+        note.pad_id = note_form.pad.data if note_form.pad.data != 0 else None
 
         db.session.commit()
         flash('Note is successfully updated', 'success')
@@ -211,7 +213,7 @@ def forgot_password():
 @app.context_processor
 def inject_user_pads():
     ''' inject list of user pads in template context '''
-    if not current_user.is_anonymous():
+    if not current_user.is_anonymous:
         return dict(pads=current_user.pads.all())
     return dict(pads=[])
 

@@ -5,8 +5,9 @@ class Config(object):
     DEBUG = False
     TESTING = False
     SECRET_KEY = 'notejam-flask-secret-key'
-    CSRF_ENABLED = True
+    WTF_CSRF_ENABLED = True
     CSRF_SESSION_KEY = 'notejam-flask-secret-key'
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 
 class ProductionConfig(Config):
