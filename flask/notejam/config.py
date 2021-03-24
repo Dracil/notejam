@@ -1,4 +1,4 @@
-import os
+import os, json
 
 
 class Config(object):
@@ -12,8 +12,8 @@ class Config(object):
 
 class ProductionConfig(Config):
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
-
+    with open ('/tmp/db.json') as db:
+        SQLALCHEMY_DATABASE_URI = json.load(db)['db_uri']
 
 class DevelopmentConfig(Config):
     DEVELOPMENT = True
