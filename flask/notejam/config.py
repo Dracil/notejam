@@ -12,14 +12,14 @@ class Config(object):
 
 class ProductionConfig(Config):
     DEBUG = False
-    with open ('/tmp/db.json') as db:
+    with open ('/tmp/prod.json') as db:
         SQLALCHEMY_DATABASE_URI = json.load(db)['db_uri']
 
 class DevelopmentConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(os.getcwd(),
-                                                          'notejam.db')
+    with open ('/tmp/dev.json') as db:
+        SQLALCHEMY_DATABASE_URI = json.load(db)['db_uri']
 
 
 class TestingConfig(Config):
