@@ -1,8 +1,9 @@
 *.pyc
 venv
 local_db
-virt
 .vs
+.ebextensions/options.config
+
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
