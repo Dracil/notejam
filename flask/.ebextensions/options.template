@@ -1,7 +1,0 @@
-# rename to options.config and uncomment for the proper environment
-
-option_settings:
-  aws:elasticbeanstalk:application:environment:
-    #ENVIRONMENT: production
-    #ENVIRONMENT: development
-
