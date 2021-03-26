@@ -78,10 +78,24 @@ Run functional and unit tests:
 Configure Elastic Beanstalk
 ---------
 
+Configure for dev deploys
+
 .. code-block:: bash
 
-    $ eb init
-    
+    $ cd YOUR_PROJECT_DIR/flask/
+    $ cp env_configs/options.dev.config .ebextensions/options.config
+    $ eb init -r us-west-2
+    # (choose notejam-flask-dev)
+
+Configure for prod deploys
+
+.. code-block:: bash
+
+    $ cd YOUR_PROJECT_DIR/flask/
+    $ cp env_configs/options.prod.config .ebextensions/options.config
+    $ eb init -r us-west-2
+    # (choose notejam-flask-prod)
+
 ---------
 Deploy to Elastic Beanstalk
 ---------
